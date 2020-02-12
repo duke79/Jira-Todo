@@ -19,7 +19,6 @@ class JiraTodoApp(object):
         self.app = rumps.App(self.config["app_name"])
         self.app.quit_button = None
         self.app.title = "💻"
-        self.quit_button = rumps.MenuItem(title="Quit 👋🏻")
         self.refresh_button = rumps.MenuItem(
             title="Refresh ⚡️", callback=self.get_data)
         self.get_data(BOOTSTRAP)
@@ -34,7 +33,6 @@ class JiraTodoApp(object):
         self.app.menu.clear()
         self.app.menu.update(self.refresh_button)
         self.get_issues()
-        self.app.menu.update(self.quit_button)
 
     def open_url(self, item):
         id = item.title.split(':')[0]
@@ -55,8 +53,9 @@ class JiraTodoApp(object):
         for issue in issues:
             fields = jira.issue(issue.key).fields
 
-            issue_string = '{}: {} - {}'.format(issue.key,
-                                                fields.summary, fields.reporter)
+            issue_string = f'{issue.key} | '
+            issue_string += f'{":".join([version.name for version in fields.fixVersions]) if len(fields.fixVersions) else "-"} | '
+            issue_string += f'{fields.summary} - {fields.reporter}'
             button = rumps.MenuItem(
                 title=issue_string, callback=self.open_url)
             self.app.menu.update(button)
