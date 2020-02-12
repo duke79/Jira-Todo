@@ -30,7 +30,7 @@ and make an object similar to this
 
 Get your API key from [Manage API Keys](https://id.atlassian.com/manage/api-tokens)
 
-## Download (Currently now working)
+## Download (Currently not working)
 
 Get the latest app from [release section](https://github.com/aashutoshrathi/Jira-Todo-MenubarApp/releases)
 
